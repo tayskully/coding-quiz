@@ -12,11 +12,15 @@ body {
   color: black;
   min-height: 100vh;
 }
+
+.hide {
+  display: none !important;
+}
+
 /* pre-game screen */
 .home-screen {
   border: grey 2px solid;
   padding: 100px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,8 +97,6 @@ main {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  /* display: none;  */
-  /* must change in java^^ */
 }
 .btn {
   background: #ffff;

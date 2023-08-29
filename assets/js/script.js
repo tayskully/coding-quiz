@@ -67,6 +67,7 @@ function init() {
 }
 
 //gameplay function
+
 function startGame() {
   console.log("starting game");
   hideIntro();
@@ -84,9 +85,9 @@ function startGame() {
 }
 
 function hideIntro() {
-  var homeScreen = document.getElementsByClassName("home-screen");
-  homeScreen;
-  console.log("trying to hide");
+  document.querySelector(".home-screen").classList.add("hide")
+  document.querySelector(".quiz-container").classList.remove("hide")
+    console.log("trying to hide");
 }
 
 function startTimer() {
@@ -101,21 +102,24 @@ function startTimer() {
       //   if (isWin && timerCount > 0) {
       //is win ?????
       // Clears interval and stops timer
-      clearInterval(timer);
+    //   clearInterval(timer);
       // winGame();
     }
 
     // Tests if time has run out
-    if (timerCount === 0) {
+    if (timerCount <= 0) {
       // Clears interval
-      clearInterval(timer);
-      loseGame();
+      showScore()
+    //   loseGame();
     }
   }, 1000);
 }
+
+
 //leaned heavily on code from youtube man
 function nextQuestion() {
-  resetState();
+  //resetState();
+  answerButtons.innerHTML = ""
   console.log("next question");
   var currentQuestion = quizData[currentQuestionIndex];
   var questionNo = currentQuestionIndex + 1;
@@ -132,17 +136,13 @@ function nextQuestion() {
     button.addEventListener("click", selectAnswer);
   });
 }
-function resetState() {
-  while (answerButtons.firstChild) {
-    answerButtons.removeChild(answerButtons.firstChild);
-  }
-}
-function showScore() {
-  resetState();
-  questionEl.innerHTML = "you scored" + score + "points";
-  //add your initals
-  // function logHighScore () {}
-}
+
+// function resetState() {
+//   while (answerButtons.firstChild) {
+//     answerButtons.removeChild(answerButtons.firstChild);
+//   }
+// }
+
 function handleNext() {
   currentQuestionIndex++;
   if (currentQuestionIndex < quizData.length) {
@@ -152,15 +152,33 @@ function handleNext() {
   }
 }
 
+function showScore() {
+    //resetState();
+    clearInterval(timer)
+    questionEl.innerHTML = "you scored " + score + " points";
+    //display high score form
+    showForm();
+    //add your initals
+    // function logHighScore () {}
+  }
+
+function showForm () {
+    document.querySelector(".quiz-container").classList.add("hide");
+    document.querySelector(".score-container").classList.remove("hide");
+  }
+
 function selectAnswer(event) {
   var selectedBtn = event.target;
   var isCorrect = selectedBtn.dataset.correct === "true";
+var displayRightWrong = document.querySelector(".result");
 
   if (isCorrect) {
     selectedBtn.classList.add("correct");
+    displayRightWrong.textContent ="Right!"
     score++;
   } else {
     selectedBtn.classList.add("incorrect");
+    displayRightWrong.textContent ="WRONG!";
   }
   Array.from(answerButtons.children).forEach((button) => {
     if (button.dataset.correct === "true") {
