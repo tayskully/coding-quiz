@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+
+    <title>Coding Quiz!</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <button class="high-score-btn">View High Scores</button>
+        <p>Time Left :<span class="timer"> 60 </span> Seconds</p>
+      </nav>
+    </header>
+    <main class="overlaying">
+      <div class="home-screen">
+        <h1>Coding Quiz</h1>
+        <h2>Can YOU pass the test?</h2>
+        <p>You have 60 seconds to prevail</p>
+        <button id="startBtn">Start Quiz</button>
+      </div>
+
+      <div class="quiz-container">
+        <h1 id="question">Question</h1>
+        <div id="answer-buttons">
+          <button class="btn">Answer 1</button>
+          <button class="btn">Answer 2</button>
+          <button class="btn">Answer 3</button>
+          <button class="btn">Answer 4</button>
+        </div>
+      </div>
+
+      <div id="result" class="result"></div>
+
+      <div id="score-container" class="score-container">
+        <h2>Game Over</h2>
+        <p>High Score: <span id="final-score"></span></p>
+        <label for="initials">Enter your initials: </label>
+        <input type="text" id="initials" maxlength="3" />
+        <button id="submitBtn">Submit</button>
+      </div>
+
+      <div class="scoreboard">
+        <ul>High Scores:</ul>
+        <li>Top Dog: <span class="initials">XO</span></li>
+       
+        
+      </div>
+
+      <script src="./assets/js/script.js"></script>
+    </main>
+  </body>
+</html>

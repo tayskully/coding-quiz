@@ -1,0 +1,137 @@
+/* global styles */
+* {
+  box-sizing: border-box;
+  /* border: 2px solid red; */
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Share Tech Mono", monospace;
+  background-color: snow;
+  color: black;
+  min-height: 100vh;
+}
+/* pre-game screen */
+.home-screen {
+  border: grey 2px solid;
+  padding: 100px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-screen h1 {
+  font-family: "VT323", monospace;
+  font-size: 4rem;
+  border: rgb(241, 239, 239) solid 10px;
+  padding: 20px;
+}
+#startBtn {
+  background: radial-gradient(
+    circle,
+    rgb(210, 232, 247) 0%,
+    rgba(132, 136, 135, 0.954) 100%
+  );
+  border-radius: 8px;
+  color: #050505;
+  cursor: pointer;
+  font-size: 2em;
+  font-family: "VT323", monospace;
+  letter-spacing: 0.21px;
+  line-height: 16px;
+  max-width: 255px;
+  padding: 20px 52px;
+  text-align: center;
+  transition-duration: 0.15s;
+  transition-property: background-color;
+  transition-timing-function: linear;
+  margin-top: 0.6em;
+}
+
+header nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  background: #d5e1eb;
+  color: #000000;
+  font-size: 1.5rem;
+  border-bottom: 10px #879274;
+}
+.high-score-btn {
+  background: rgb(215, 215, 215);
+  font-family: "Share Tech Mono", monospace;
+  padding: 10px;
+  transition: ease-in-out 0.15s;
+}
+.high-score-btn:hover {
+  background: grey;
+  cursor: pointer;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#question {
+  font-size: 2rem;
+  border-bottom: 1px solid black;
+  padding-bottom: 20px;
+}
+
+.quiz-container {
+  padding: 20px;
+  border: grey;
+  border: 2px solid grey;
+  border-radius: 10px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  /* display: none;  */
+  /* must change in java^^ */
+}
+.btn {
+  background: #ffff;
+  color: #222;
+  font-weight: 500;
+  width: 100%;
+  border: 1px solid #222;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: left;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: ease-in-out 0.15s;
+}
+
+.btn:hover:not([disabled]) {
+  background: black;
+  color: white;
+}
+.btn:disabled {
+  cursor: no-drop;
+}
+
+.correct {
+  background: green;
+}
+.incorrect {
+  background: red;
+}
+
+/* game over  */
+.score-container {
+  border: grey 2px solid;
+  padding: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
