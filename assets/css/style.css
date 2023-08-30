@@ -131,9 +131,38 @@ main {
 .score-container {
   border: grey 2px solid;
   padding: 50px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+.scored-board-body{
+    background:grey;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.scoreboard {
+    width: 500px;
+    border: rgb(31, 30, 30) 2px solid;
+    background: white;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .scoreboard h1 {
+    font-family: "VT323", monospace;
+    font-size: 3rem;
+    border: rgb(241, 239, 239) solid 5px;
+    padding: 20px;
+    text-shadow: 2px 2px 5px red;
+  }
+  .scoreboard p {
+    font-family: "VT323", monospace;
+    text-align: left;
+    font-size: 2rem;
+    padding: 10px;
+  }

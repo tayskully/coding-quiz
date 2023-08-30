@@ -5,10 +5,12 @@ var startButton = document.querySelector("#startBtn");
 var questionEl = document.querySelector("#question");
 var answerButtons = document.querySelector("#answer-buttons");
 var score = document.querySelector("#final-score");
+var yourScore = document.querySelector(".your-score");
+var displayRightWrong = document.querySelector(".result");
+var initialsInput = document.querySelector("#initials");
+var inputWarning = document.querySelector('.warning')
 
 //DATA==========================================
-//highscores in local data
-var highScore = 0;
 
 //initals from user input
 var userInitials = "";
@@ -22,39 +24,39 @@ var score = 0;
 
 var quizData = [
   {
-    question: "What is my favorite color?",
+    question: "Inside which HTML element do we put the JavaScript?",
     answers: [
-      { text: "ripe red", correct: false },
-      { text: "sunset orange", correct: true },
-      { text: "royal blue", correct: false },
-      { text: "coral pink", correct: false },
+      { text: "JS", correct: false },
+      { text: "script", correct: true },
+      { text: "javascript", correct: false },
+      { text: "scripting", correct: false },
     ],
   },
   {
-    question: "What is my favorite movie?",
+    question: "Where is the correct place to insert a JavaScript?",
     answers: [
-      { text: "Superbad", correct: false },
-      { text: "The Departed", correct: false },
-      { text: "Creature from the Black Lagoon", correct: false },
-      { text: "Amelie", correct: true },
+      { text: "the head section", correct: false },
+      { text: "the footer section", correct: false },
+      { text: "the body section", correct: false },
+      { text: "both the head and the body section", correct: true },
     ],
   },
   {
-    question: "What is my favorite fruit?",
+    question: "How does a WHILE loop start?",
     answers: [
-      { text: "raspberry", correct: true },
-      { text: "orange", correct: false },
-      { text: "blueberry", correct: false },
-      { text: "tomato", correct: false },
+      { text: "while (i <= 10)", correct: true },
+      { text: "while (i <=> 10; i++)", correct: false },
+      { text: "while i = 1 to 10", correct: false },
+      { text: "while (i <= 10; i++)", correct: false },
     ],
   },
   {
-    question: "What is my cat's name?",
+    question: "Which event occurs when the user clicks on an HTML element?",
     answers: [
-      { text: "Juniper", correct: false },
-      { text: "Orange", correct: false },
-      { text: "Phin", correct: true },
-      { text: "Parker", correct: false },
+      { text: "onchange", correct: false },
+      { text: "onmouseclick", correct: false },
+      { text: "onclick", correct: true },
+      { text: "onmouseover", correct: false },
     ],
   },
 ];
@@ -62,21 +64,18 @@ var quizData = [
 //FUNCTIONS=====================================
 //will retrieve stored data from previous wins
 function init() {
-  getWins();
-  getlosses();
+  getScore();
 }
 
 //gameplay function
 
 function startGame() {
-  console.log("starting game");
+  //homepage disappears
   hideIntro();
   startTimer();
-
+  //first question is presented
   nextQuestion();
 
-  //homepage disappears
-  //first question is presented
   //user click received
   //answer is correct or incorrect
   //score is added to (either 0 or 1)
@@ -85,42 +84,25 @@ function startGame() {
 }
 
 function hideIntro() {
-  document.querySelector(".home-screen").classList.add("hide")
-  document.querySelector(".quiz-container").classList.remove("hide")
-    console.log("trying to hide");
+  document.querySelector(".home-screen").classList.add("hide");
+  document.querySelector(".quiz-container").classList.remove("hide");
 }
-
+// Sets timer
 function startTimer() {
-  console.log("starting timer");
   timerCount = 60;
-  // Sets timer
   timer = setInterval(function () {
     timerCount--;
     timerEl.textContent = timerCount;
-    if (timerCount >= 0) {
-      // Tests if win condition is met
-      //   if (isWin && timerCount > 0) {
-      //is win ?????
-      // Clears interval and stops timer
-    //   clearInterval(timer);
-      // winGame();
-    }
-
-    // Tests if time has run out
+    //if time has run out
     if (timerCount <= 0) {
-      // Clears interval
-      showScore()
-    //   loseGame();
+      showScore();
     }
   }, 1000);
 }
 
-
 //leaned heavily on code from youtube man
 function nextQuestion() {
-  //resetState();
-  answerButtons.innerHTML = ""
-  console.log("next question");
+  answerButtons.innerHTML = "";
   var currentQuestion = quizData[currentQuestionIndex];
   var questionNo = currentQuestionIndex + 1;
   questionEl.innerHTML = questionNo = ". " + currentQuestion.question;
@@ -136,49 +118,22 @@ function nextQuestion() {
     button.addEventListener("click", selectAnswer);
   });
 }
-
-// function resetState() {
-//   while (answerButtons.firstChild) {
-//     answerButtons.removeChild(answerButtons.firstChild);
-//   }
-// }
-
-function handleNext() {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < quizData.length) {
-    nextQuestion();
-  } else {
-    showScore();
-  }
-}
-
-function showScore() {
-    //resetState();
-    clearInterval(timer)
-    questionEl.innerHTML = "you scored " + score + " points";
-    //display high score form
-    showForm();
-    //add your initals
-    // function logHighScore () {}
-  }
-
-function showForm () {
-    document.querySelector(".quiz-container").classList.add("hide");
-    document.querySelector(".score-container").classList.remove("hide");
-  }
-
 function selectAnswer(event) {
   var selectedBtn = event.target;
   var isCorrect = selectedBtn.dataset.correct === "true";
-var displayRightWrong = document.querySelector(".result");
+  var timeout = setTimeout(handleNext, 800);
 
   if (isCorrect) {
     selectedBtn.classList.add("correct");
-    displayRightWrong.textContent ="Right!"
+    displayRightWrong.textContent = "Right 🥳 ";
     score++;
   } else {
     selectedBtn.classList.add("incorrect");
-    displayRightWrong.textContent ="WRONG!";
+    displayRightWrong.textContent = "WRONG! 🥵 -10 secs!!!";
+    timerCount -= 10;
+    if (timerCount < 0) {
+      timerCount = 0;
+    }
   }
   Array.from(answerButtons.children).forEach((button) => {
     if (button.dataset.correct === "true") {
@@ -188,38 +143,68 @@ var displayRightWrong = document.querySelector(".result");
   });
 
   if (currentQuestionIndex < quizData.length) {
-    return handleNext();
+    return timeout;
   }
 }
 
-function stopGame() {
-  console.log("stopping game");
+function handleNext() {
+  console.log("handle next");
+  displayRightWrong.textContent = " ";
+  currentQuestionIndex++;
+  if (currentQuestionIndex < quizData.length) {
+    nextQuestion();
+  } else {
+    showScore();
+  }
 }
-//GAME OVER appears with prompt to input initials
-//initials are stored in high score scoreboard
+function showScore() {
+  console.log(score);
+  //   resetState();
+  clearInterval(timer);
+  yourScore.innerHTML = "you scored " + score + " points";
+  //display high score form
+  //add element to link form to
+  showForm();
+}
 
-// function getScore() {
-//     // Get stored value from client storage, if it exists
-//     var storedScore = localStorage.getItem("scoreCount");
-//     // If stored value doesn't exist, set counter to 0
-//     if (storedScore === null) {
-//       winCounter = 0;
-//     } else {
-//       // If a value is retrieved from client storage set the winCounter to that value
-//       winCounter = storedWins;
-//     }
-//     //Render win count to page
-//     win.textContent = winCounter;
-//   }
-//   function getlosses() {
-//     var storedLosses = localStorage.getItem("loseCount");
-//     if (storedLosses === null) {
-//       loseCounter = 0;
-//     } else {
-//       loseCounter = storedLosses;
-//     }
-//     lose.textContent = loseCounter;
-//   }
+function showForm() {
+  document.querySelector(".quiz-container").classList.add("hide");
+  document.querySelector(".score-container").classList.remove("hide");
+}
+
+function displayMessage(type, message) {
+    inputWarning.textContent = message;
+    inputWarning.setAttribute("class", type);
+  }
+
+document
+  .getElementById("submitBtn")
+  .addEventListener("click", function (event) {
+    event.preventDefault();
+    var initials = initialsInput.value;
+    if (initials === "") {
+      displayMessage("Want to start over? hit refresh");
+    } else {
+      displayMessage("registered successfully, check out the High Scores!");
+    }
+    //get input data initials
+    //store together with score in array
+    localStorage.setItem("Initials", initials + score);
+  });
+
+function getScore() {
+  // Get stored value from client storage, if it exists
+  var storedScore = localStorage.getItem("scoreCount");
+  // If stored value doesn't exist, set counter to 0
+  if (storedScore === null) {
+    winCounter = 0;
+  } else {
+    // If a value is retrieved from client storage set the winCounter to that value
+    winCounter = storedWins;
+  }
+  //Render win count to page
+  win.textContent = winCounter;
+}
 
 //USER INTERACTIONS=============================
 
@@ -231,5 +216,3 @@ function stopGame() {
 // start game
 // start timer countdown
 startButton.addEventListener("click", startGame, nextQuestion);
-// end game
-//add to scoreboard
