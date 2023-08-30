@@ -8,7 +8,7 @@ var score = document.querySelector("#final-score");
 var yourScore = document.querySelector(".your-score");
 var displayRightWrong = document.querySelector(".result");
 var initialsInput = document.querySelector("#initials");
-var inputWarning = document.querySelector('.warning')
+var inputWarning = document.querySelector(".warning");
 
 //DATA==========================================
 
@@ -173,9 +173,9 @@ function showForm() {
 }
 
 function displayMessage(type, message) {
-    inputWarning.textContent = message;
-    inputWarning.setAttribute("class", type);
-  }
+  inputWarning.textContent = message;
+  inputWarning.setAttribute("class", type);
+}
 
 document
   .getElementById("submitBtn")
@@ -189,7 +189,7 @@ document
     }
     //get input data initials
     //store together with score in array
-    localStorage.setItem("Initials", initials + score);
+    localStorage.setItem("Initials", initials, "Score", score);
   });
 
 function getScore() {
