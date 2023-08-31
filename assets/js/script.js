@@ -172,29 +172,34 @@ function showForm() {
   document.querySelector(".score-container").classList.remove("hide");
 }
 
-function displayMessage(type, message) {
-  inputWarning.textContent = message;
-  inputWarning.setAttribute("class", type);
-}
-
 document
   .getElementById("submitBtn")
   .addEventListener("click", function (event) {
     event.preventDefault();
     var initials = initialsInput.value;
+
     if (initials === "") {
       displayMessage("Want to start over? hit refresh");
     } else {
       displayMessage("registered successfully, check out the High Scores!");
     }
+
     //get input data initials
     //store together with score in array
     localStorage.setItem("Initials", initials, "Score", score);
   });
 
+function displayMessage(message) {
+  var messageDisplay = document.querySelector("#add-text");
+  messageDisplay.textContent = message;
+  setTimeout(() => {
+    messageDisplay.remove();
+  }, 2000);
+}
+
 function getScore() {
   // Get stored value from client storage, if it exists
-  var storedScore = localStorage.getItem("scoreCount");
+  var storedScore = localStorage.getItem(initials, score);
   // If stored value doesn't exist, set counter to 0
   if (storedScore === null) {
     winCounter = 0;
