@@ -11,10 +11,6 @@ var initialsInput = document.querySelector("#initials");
 var inputWarning = document.querySelector(".warning");
 
 //DATA==========================================
-
-//initals from user input
-var userInitials = "";
-
 var timer;
 //final score
 
@@ -60,29 +56,19 @@ var quizData = [
     ],
   },
 ];
-
 //FUNCTIONS=====================================
 //will retrieve stored data from previous wins
 function init() {
   getScore();
 }
-
 //gameplay function
-
 function startGame() {
-  //homepage disappears
   hideIntro();
   startTimer();
   //first question is presented
   nextQuestion();
-
-  //user click received
-  //answer is correct or incorrect
-  //score is added to (either 0 or 1)
-  //question disappears
-  //next question appears
 }
-
+//homepage disappears
 function hideIntro() {
   document.querySelector(".home-screen").classList.add("hide");
   document.querySelector(".quiz-container").classList.remove("hide");
@@ -99,8 +85,7 @@ function startTimer() {
     }
   }, 1000);
 }
-
-//leaned heavily on code from youtube man
+//leaned heavily on tutorial linked in README
 function nextQuestion() {
   answerButtons.innerHTML = "";
   var currentQuestion = quizData[currentQuestionIndex];
@@ -126,13 +111,14 @@ function selectAnswer(event) {
   if (isCorrect) {
     selectedBtn.classList.add("correct");
     displayRightWrong.textContent = "Right 🥳 ";
-    score++;
+    score += 10;
   } else {
     selectedBtn.classList.add("incorrect");
     displayRightWrong.textContent = "WRONG! 🥵 -10 secs!!!";
     timerCount -= 10;
+    console.log(timerCount);
     if (timerCount < 0) {
-      timerCount = 0;
+      timerCount === 0;
     }
   }
   Array.from(answerButtons.children).forEach((button) => {
@@ -159,7 +145,6 @@ function handleNext() {
 }
 function showScore() {
   console.log(score);
-  //   resetState();
   clearInterval(timer);
   yourScore.innerHTML = "you scored " + score + " points";
   //display high score form
@@ -183,10 +168,12 @@ document
     } else {
       displayMessage("registered successfully, check out the High Scores!");
     }
+    var pastScores = JSON.parse(localStorage.getItem("scores")) || [];
 
     //get input data initials
     //store together with score in array
-    localStorage.setItem("Initials", initials, "Score", score);
+    localStorage.setItem("scores", JSON.stringify(pastScores));
+    renderScores();
   });
 
 function displayMessage(message) {
@@ -197,27 +184,18 @@ function displayMessage(message) {
   }, 2000);
 }
 
-function getScore() {
+function renderScores(pastScores) {
   // Get stored value from client storage, if it exists
-  var storedScore = localStorage.getItem(initials, score);
-  // If stored value doesn't exist, set counter to 0
-  if (storedScore === null) {
-    winCounter = 0;
-  } else {
-    // If a value is retrieved from client storage set the winCounter to that value
-    winCounter = storedWins;
-  }
-  //Render win count to page
-  win.textContent = winCounter;
+  //   var pastScores = JSON.parse(localStorage.getItem("scores")) || [];
+  var getData = document.querySelector(".storedData");
+  console.log(getData);
+  getData.textContent = pastScores;
+
+  //   if (pastScores === null || pastScores === "") {
+  //     return getData.textContent = pastScores;
+  //   } else {
 }
-
-//USER INTERACTIONS=============================
-
-//click start button
-//click correct answer
-//input high score initials last page
 
 //INITIALIZATIONS===============================
 // start game
-// start timer countdown
 startButton.addEventListener("click", startGame, nextQuestion);

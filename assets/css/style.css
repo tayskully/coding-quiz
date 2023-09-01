@@ -66,10 +66,11 @@ header nav {
   border-bottom: 10px #879274;
 }
 .high-score-btn {
-  background: rgb(215, 215, 215);
   font-family: "Share Tech Mono", monospace;
-  padding: 10px;
+  margin-top: 20px;
   transition: ease-in-out 0.15s;
+  text-decoration: none;
+  color: rgb(120, 138, 167);
 }
 .high-score-btn:hover {
   background: grey;
