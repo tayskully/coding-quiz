@@ -14,7 +14,7 @@ When the game is over, peep your score! If you'd like to add it to the highscore
 
 The interaction may look like the following screenshots:
 
-![alt text](assets/images/welcome-page.png.png)
+![alt text](assets/images/welcome-page.png)
 ![alt text](assets/images/hover.png)
 ![alt text](assets/images/click.png)
 
