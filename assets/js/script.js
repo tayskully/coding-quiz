@@ -4,7 +4,7 @@ var quizContainerEl = document.querySelector(".quiz-container");
 var startButton = document.querySelector("#startBtn");
 var questionEl = document.querySelector("#question");
 var answerButtons = document.querySelector("#answer-buttons");
-var score = document.querySelector("#final-score");
+var scoreEl = document.querySelector("#final-score");
 var yourScore = document.querySelector(".your-score");
 var displayRightWrong = document.querySelector(".result");
 var initialsInput = document.querySelector("#initials");
@@ -75,7 +75,7 @@ function hideIntro() {
 }
 // Sets timer
 function startTimer() {
-  timerCount = 60;
+  timerCount = 45;
   timer = setInterval(function () {
     timerCount--;
     timerEl.textContent = timerCount;
@@ -168,32 +168,36 @@ document
     } else {
       displayMessage("registered successfully, check out the High Scores!");
     }
-    var pastScores = JSON.parse(localStorage.getItem("scores")) || [];
+    var scores = JSON.parse(localStorage.getItem("scores")) || [];
 
     //get input data initials
+    var initialsObject = {
+      initials,
+      score,
+    };
+    scores.push(initialsObject);
     //store together with score in array
-    localStorage.setItem("scores", JSON.stringify(pastScores));
+
+    localStorage.setItem("scores", JSON.stringify(scores));
     renderScores();
   });
 
 function displayMessage(message) {
   var messageDisplay = document.querySelector("#add-text");
-  messageDisplay.textContent = message;
+  messageDisplay.textContent = message; 
+  messageDisplay.style.display= "inline"; //re-ads it after it displays none
   setTimeout(() => {
-    messageDisplay.remove();
+    messageDisplay.style.display = "none";
   }, 2000);
 }
 
-function renderScores(pastScores) {
-  // Get stored value from client storage, if it exists
-  //   var pastScores = JSON.parse(localStorage.getItem("scores")) || [];
-  var getData = document.querySelector(".storedData");
-  console.log(getData);
-  getData.textContent = pastScores;
+function renderScores() {
+  // Get stored value from client storage, if it exists(passed in through scores)
+  var scores = JSON.parse(localStorage.getItem("scores")) || [];
+  console.log(scores);
 
-  //   if (pastScores === null || pastScores === "") {
-  //     return getData.textContent = pastScores;
-  //   } else {
+  // if (pastScores === null || pastScores === "") {
+  //   return getData.textContent = pastScores;
 }
 
 //INITIALIZATIONS===============================
